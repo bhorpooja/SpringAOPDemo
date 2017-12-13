@@ -25,6 +25,15 @@ public class StudentController {
     @GetMapping("/getStudent/{name}")
     public Student getStudent(@PathVariable String name){
         Student student=studentRepo.findByName(name);
+//        System.out.println(student.toString());
         return student;
+    }
+
+    @PostMapping("updateStudent/{name}/{city}")
+    public String updateStudent(@PathVariable String name,@PathVariable String city){
+        Student student=studentRepo.findByName(name);
+        student.setCity(city);
+        studentRepo.save(student);
+        return "Student Updated";
     }
 }

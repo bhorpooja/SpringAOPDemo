@@ -27,25 +27,27 @@ public class StudentAspect {
         System.out.println("@After:"+LocalDate.now());
     }
 
-//    @Around("execution(* com.codekul.SpringAspectDemo.controller.StudentController.getStudent(..)) && args(.., name)")
-//    public Object logAround(ProceedingJoinPoint joinPoint,String name) throws Throwable {
-//        System.out.println("@Before"+LocalDate.now());
-//        Object obj= joinPoint.proceed();
-//        System.out.println("@After"+joinPoint.getArgs().toString());
-//        return obj;
-//    }
+    @Around("execution(* com.codekul.SpringAspectDemo.controller.StudentController.updateStudent(..)) && args(.., city)")
+    public Object logAround(ProceedingJoinPoint jp,String city) throws Throwable {
+        System.out.println("@Before"+city);
+        Object obj= jp.proceed();
+        System.out.println("@After"+city);
+        return  obj;
+    }
 
 
     @Around("execution(* com.codekul.SpringAspectDemo.controller.StudentController.getStudent(..)) && args(.., name)")
     public Object useArgs(ProceedingJoinPoint pjp, String name) throws Throwable{
-        System.out.println("it works!"+pjp.getArgs().toString());
+        System.out.println("Around:"+pjp.getArgs().toString());
+        System.out.println("Name : "+name);
         return pjp.proceed();
     }
 
-    @AfterReturning("execution(* com.codekul.SpringAspectDemo.controller.StudentController+.*(..))")
-    public void logAfterReturn(JoinPoint jp)
+    @AfterReturning(pointcut = "execution(* com.codekul.SpringAspectDemo.controller.StudentController.getStudent(..))",returning = "val")
+    public void logAfterReturn(Student val)
     {
 //            Log.getLog("@After","Student Added ",true);
-        System.out.println("@AfterReturning:"+jp.getTarget().toString());
+        System.out.println("Method Return : "+val);
+        System.out.println("@AfterReturning:"+LocalDate.now());
     }
 }

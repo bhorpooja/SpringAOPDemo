@@ -11,6 +11,16 @@ public class Student {
     String id;
     String name;
     String city;
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", city='" + city + '\'' +
+                '}';
+    }
+
+
 
     public String getId() {
         return id;
