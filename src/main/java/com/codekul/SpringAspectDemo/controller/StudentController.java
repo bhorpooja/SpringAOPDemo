@@ -5,6 +5,8 @@ import com.codekul.SpringAspectDemo.repo.StudentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 /**
  * Created by pooja on 12/12/17.
@@ -29,11 +31,25 @@ public class StudentController {
         return student;
     }
 
+    @GetMapping("/getList")
+    public List<Student> getList(){
+        List<Student> list=studentRepo.findAll();
+        return list;
+    }
+
     @PostMapping("updateStudent/{name}/{city}")
-    public String updateStudent(@PathVariable String name,@PathVariable String city){
+    public Student updateStudent(@PathVariable String name,@PathVariable String city){
         Student student=studentRepo.findByName(name);
+//        System.out.println(student.toString());
         student.setCity(city);
         studentRepo.save(student);
-        return "Student Updated";
+        return student;
+    }
+
+    @GetMapping("/division/{a}/{b}")
+    public Integer div(@PathVariable Integer a,@PathVariable Integer b){
+        Integer c=a/b;
+        return c;
+
     }
 }

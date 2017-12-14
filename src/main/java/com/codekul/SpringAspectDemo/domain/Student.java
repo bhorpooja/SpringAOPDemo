@@ -11,6 +11,8 @@ public class Student {
     String id;
     String name;
     String city;
+
+
     @Override
     public String toString() {
         return "Student{" +
@@ -19,8 +21,6 @@ public class Student {
                 ", city='" + city + '\'' +
                 '}';
     }
-
-
 
     public String getId() {
         return id;
