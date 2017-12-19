@@ -1,14 +1,14 @@
 package com.codekul.SpringAspectDemo.aspect;
 
 import com.codekul.SpringAspectDemo.domain.Student;
-import org.aopalliance.intercept.MethodInvocation;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by pooja on 12/12/17.
@@ -41,19 +41,18 @@ public class StudentAspect {
 //        System.out.println(objTrg.toString());
 //    }
 
-//    @After("execution(* com.codekul.SpringAspectDemo.controller.StudentController.getList(..))")
-//    public void logAfter(JoinPoint jp)
-//    {
+    @After("execution(* com.codekul.SpringAspectDemo.controller.StudentController.getList(..))")
+    public void logAfter(JoinPoint jp)
+    {
 //        System.out.println("@Get List : "+jp.getArgs().toString());
 //        Object args=jp.getTarget();
-//        Student student= (Student) args;
-//
-//        System.out.println("Id : "+student.getId().toString());
-//        System.out.println("Name : "+student.getName().toString());
-////        for (Object obj:args) {
-////            System.out.println(args.toString());
-////        }
-//    }
+        List<Student> list= (List<Student>)jp.getTarget();
+        Iterator<Student> it=list.iterator();
+        while (it.hasNext()){
+            Student st=it.next();
+            System.out.println("Id : "+st.getId()+"Name : "+st.getName()+"City : "+st.getCity());
+        }
+    }
 
 
 
